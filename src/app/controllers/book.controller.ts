@@ -65,69 +65,69 @@ BookRoute.delete("/:id" , async(req: Request , res:Response)=> {
 })
 
 // Book update
-// BookRoute.put('/:id', async (req:Request , res :Response) => {
+BookRoute.put('/:id', async (req:Request , res :Response) => {
     
-//     try {
-//     const bookId = req.params.id ;
-//     const {title, author, genre, isbn, description, copies} = req.body;
+    try {
+    const bookId = req.params.id ;
+    const {title, author, genre, isbn, description, copies} = req.body;
 
-//         const book = await Book.findById(bookId);
+        const book = await Book.findById(bookId);
 
-//         if (!book) {
-//             return res.status(404).json({ message: "Book not found" });
-//         }
+        if (!book) {
+            return res.status(404).json({ message: "Book not found" });
+        }
 
-//         book.title = title || book.title;
-//         book.author = author || book.author;
-//         book.genre = genre || book.genre;
-//         book.isbn = isbn || book.isbn;
-//         book.description = description || book.description;
-//         book.copies = copies || book.copies;
-//         book.available = book.copies > 0;
+        book.title = title || book.title;
+        book.author = author || book.author;
+        book.genre = genre || book.genre;
+        book.isbn = isbn || book.isbn;
+        book.description = description || book.description;
+        book.copies = copies || book.copies;
+        book.available = book.copies > 0;
 
-//        const updatedBook = await book.save();
+       const updatedBook = await book.save();
 
-//         res.status(200).json({
-//             success: true,
-//             message: "Book updated successfully",
-//             data: updatedBook
-//         });
-//     } catch (error) {
-//         res.status(500).json({
-//             success: false,
-//             message: "Error updating book",
-//             error
-//         });
-//     }
-// });
-
-BookRoute.put('/:id', async (req: Request, res: Response) => {
-  try {
-    const bookId = req.params.id;
-    const { title, author, genre, isbn, description, copies } = req.body;
-
-    const book = await Book.findById(bookId);
-    if (!book) {
-      return res.status(404).json({ message: "Book not found" });
+        res.status(200).json({
+            success: true,
+            message: "Book updated successfully",
+            data: updatedBook
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Error updating book",
+            error
+        });
     }
-
-    book.title = title || book.title;
-    book.author = author || book.author;
-    book.genre = genre || book.genre;
-    book.isbn = isbn || book.isbn;
-    book.description = description || book.description;
-    book.copies = copies || book.copies;
-    book.available = book.copies > 0;
-
-    const updatedBook = await book.save();
-
-    res.status(200).json({
-      success: true,
-      message: "Book updated successfully",
-      data: updatedBook
-    });
-
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Server error", error });
-  }
 });
+
+// BookRoute.put('/:id', async (req: Request, res: Response) => {
+//   try {
+//     const bookId = req.params.id;
+//     const { title, author, genre, isbn, description, copies } = req.body;
+
+//     const book = await Book.findById(bookId);
+//     if (!book) {
+//       return res.status(404).json({ message: "Book not found" });
+//     }
+
+//     book.title = title || book.title;
+//     book.author = author || book.author;
+//     book.genre = genre || book.genre;
+//     book.isbn = isbn || book.isbn;
+//     book.description = description || book.description;
+//     book.copies = copies || book.copies;
+//     book.available = book.copies > 0;
+
+//     const updatedBook = await book.save();
+
+//     res.status(200).json({
+//       success: true,
+//       message: "Book updated successfully",
+//       data: updatedBook
+//     });
+
+//   } catch (error) {
+//     res.status(500).json({ success: false, message: "Server error", error });
+//   }
+// });
