@@ -27,7 +27,7 @@ BorrowRouter.post('/' , async(req:Request , res:Response) => {
             success: false
         })
     }
-    const newBorrow = new Borrow({// Spread the book schema to include all fields
+    const newBorrow = new Borrow({
       book: bookId,
       quantity,
       dueDate: new Date(dueDate)
