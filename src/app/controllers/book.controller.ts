@@ -14,7 +14,7 @@ BookRoute.get("/", async ( req: Request , res : Response) => {
     }
 });
 
-
+// Book details post
 BookRoute.post("/", async (req:Request , res:Response) => {
 
     try {
@@ -45,4 +45,19 @@ BookRoute.get("/:id", async(req:Request , res:Response) => {
         data: book
     })
 
+})
+
+// Book delete 
+
+BookRoute.delete("/:id" , async(req: Request , res:Response)=> {
+    const bookId = req.params.id;
+    const deleteBook = await Book.findByIdAndDelete(bookId);
+    // if (!deleteBook) {
+    //     return res.status(404).json({ message: "Book not found" });
+    // }
+    res.status(200).json({
+        success: true,
+        message: "Book deleted successfully",
+        data: deleteBook
+    });
 })
