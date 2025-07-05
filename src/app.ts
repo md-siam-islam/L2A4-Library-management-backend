@@ -1,12 +1,16 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import { BookRoute } from './app/controllers/book.controller';
-import { BorrowRouter } from './app/controllers/borrowBook.controller';
+import  BorrowRouter from './app/controllers/borrowBook.controller';
 import errorMiddleware from './errorMiddleware';
 
 const app = express();
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: ['http://localhost:5173', 'https://library-management-opal-five.vercel.app']
+   })
+);
 app.use(express.json());
 
 // Routes

@@ -65,7 +65,7 @@ BookRoute.delete("/:id" , async(req: Request , res:Response)=> {
 })
 
 // Book update
-BookRoute.put('/:id', async (req:Request , res :Response) => {
+BookRoute.put('/:id', async(req:Request , res :Response)=> {
     
     try {
     const bookId = req.params.id ;

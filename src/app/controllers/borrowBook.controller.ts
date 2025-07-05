@@ -1,10 +1,9 @@
-import express from 'express';
-import { Request, Response , Router} from 'express';
+import express, { Request, Response } from 'express';
 import Book from '../models/book.model';
 import Borrow from '../models/borrow.model';
 
 
-export const BorrowRouter = express.Router()
+const BorrowRouter = express.Router();
 
 
 BorrowRouter.post('/' , async(req:Request , res:Response) => {
@@ -26,6 +25,12 @@ BorrowRouter.post('/' , async(req:Request , res:Response) => {
             message: 'Insufficient copies available',
             success: false
         })
+    }
+
+    const date = new Date(req.body.dueDate)
+
+    if(date < new Date) {
+         return res.status(400).json({ message: "Due date must be in the future" });
     }
     const newBorrow = new Borrow({
       book: bookId,
@@ -62,7 +67,8 @@ BorrowRouter.get('/summary' , async(req:Request , res: Response) => {
             $group: {
                 _id: "$book",
                 totalBorrowed: { $sum: "$quantity" },
-                totalUsers: { $addToSet: "$user" }
+                totalUsers: { $addToSet: "$user" },
+                firstDueDate: { $first: "$dueDate" }
             }
         },
         {
@@ -82,7 +88,9 @@ BorrowRouter.get('/summary' , async(req:Request , res: Response) => {
                 title: "$bookDetails.title",
                 author: "$bookDetails.author",
                 totalBorrowed: 1,
-                totalUsers: { $size: "$totalUsers" }
+                totalUsers: { $size: "$totalUsers" },
+                dueDate: "$firstDueDate"
+            
             }
         }
     ]);
@@ -93,3 +101,5 @@ BorrowRouter.get('/summary' , async(req:Request , res: Response) => {
         data: borrowsummary
     });
 });
+
+export default BorrowRouter;
